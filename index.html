@@ -1,0 +1,236 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AYARE | Online Shopping</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f7f7fb;
+      color: #222;
+    }
+
+    header {
+      background: #27104e;
+      color: white;
+      padding: 22px 16px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 32px;
+      letter-spacing: 3px;
+    }
+
+    header p {
+      margin-bottom: 0;
+    }
+
+    .search {
+      padding: 16px;
+      text-align: center;
+    }
+
+    .search input {
+      width: 100%;
+      max-width: 500px;
+      padding: 13px;
+      border: 1px solid #ddd;
+      border-radius: 25px;
+      font-size: 16px;
+    }
+
+    .welcome {
+      padding: 20px;
+      margin: 0 16px;
+      border-radius: 16px;
+      background: #eee5ff;
+    }
+
+    .welcome h2 {
+      color: #27104e;
+      margin-top: 0;
+    }
+
+    h2.section-title {
+      margin: 24px 16px 12px;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      padding: 0 16px 25px;
+    }
+
+    .product {
+      background: white;
+      padding: 14px;
+      border-radius: 14px;
+      text-align: center;
+      box-shadow: 0 3px 12px #0000000d;
+    }
+
+    .emoji {
+      font-size: 48px;
+      padding: 12px 0;
+    }
+
+    .product h3 {
+      margin: 8px 0;
+    }
+
+    .price {
+      color: #5424a8;
+      font-weight: bold;
+    }
+
+    button {
+      background: #5424a8;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .product button {
+      width: 100%;
+    }
+
+    #cart {
+      margin: 0 16px 20px;
+      padding: 16px;
+      background: white;
+      border-radius: 12px;
+    }
+
+    footer {
+      background: #27104e;
+      color: white;
+      padding: 22px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>AYARE</h1>
+    <p>Discover More. Shop Better.</p>
+  </header>
+
+  <div class="search">
+    <input
+      type="search"
+      id="search"
+      placeholder="Search your favourite products..."
+      oninput="searchProducts()"
+    >
+  </div>
+
+  <section class="welcome">
+    <h2>Welcome to AYARE!</h2>
+    <p>Your world of shopping starts here.</p>
+    <p>Explore products for your everyday needs.</p>
+  </section>
+
+  <h2 class="section-title">Featured Products</h2>
+
+  <div class="products" id="products">
+
+    <div class="product" data-name="watch">
+      <div class="emoji">⌚</div>
+      <h3>Smart Watch</h3>
+      <p class="price">₹999</p>
+      <button onclick="addToCart('Smart Watch', 999)">
+        Add to Cart
+      </button>
+    </div>
+
+    <div class="product" data-name="shoes">
+      <div class="emoji">👟</div>
+      <h3>Casual Shoes</h3>
+      <p class="price">₹799</p>
+      <button onclick="addToCart('Casual Shoes', 799)">
+        Add to Cart
+      </button>
+    </div>
+
+    <div class="product" data-name="bag">
+      <div class="emoji">👜</div>
+      <h3>Fashion Bag</h3>
+      <p class="price">₹599</p>
+      <button onclick="addToCart('Fashion Bag', 599)">
+        Add to Cart
+      </button>
+    </div>
+
+    <div class="product" data-name="headphones">
+      <div class="emoji">🎧</div>
+      <h3>Headphones</h3>
+      <p class="price">₹499</p>
+      <button onclick="addToCart('Headphones', 499)">
+        Add to Cart
+      </button>
+    </div>
+
+  </div>
+
+  <section id="cart">
+    <h2>🛒 My Cart</h2>
+    <p id="cart-items">Your cart is empty.</p>
+    <h3 id="total">Total: ₹0</h3>
+  </section>
+
+  <footer>
+    <h3>AYARE</h3>
+    <p>Your shopping journey begins here.</p>
+    <p>© 2026 AYARE. All rights reserved.</p>
+  </footer>
+
+  <script>
+    let cart = [];
+    let total = 0;
+
+    function addToCart(name, price) {
+      cart.push({ name, price });
+      total += price;
+      updateCart();
+    }
+
+    function updateCart() {
+      document.getElementById("cart-items").textContent =
+        cart.map(item => item.name).join(", ");
+
+      document.getElementById("total").textContent =
+        "Total: ₹" + total;
+    }
+
+    function searchProducts() {
+      const query = document
+        .getElementById("search")
+        .value.toLowerCase();
+
+      document.querySelectorAll(".product").forEach(product => {
+        product.style.display =
+          product.dataset.name.includes(query) ||
+          product.innerText.toLowerCase().includes(query)
+            ? ""
+            : "none";
+      });
+    }
+  </script>
+
+</body>
+</html>
